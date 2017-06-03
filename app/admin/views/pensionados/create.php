@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="box-body">
-        <form action="<?php echo baseUrl ?>admin/pensionados" method="POST">
+        <form action="<?php echo baseUrl ?>admin/pensionados/array" method="POST">
         <?php echo Token::field() ?>
           <input type="text" name="nombre" placeholder="Ingrese Nombre">
           <input type="text" name="apellido" placeholder="Ingrese Apellido">

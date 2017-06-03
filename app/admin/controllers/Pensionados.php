@@ -15,8 +15,6 @@ class Pensionados extends Controller
     // localhost/proyecto/modulo/principal
     public function index()
     {
-        $mensaje = $_SESSION['flash_message'];
-        //\Krumo::dump($mensaje);
         $pensionados = Pensionado::all();
         View::show('index', compact('pensionados'));
     }
@@ -75,7 +73,11 @@ class Pensionados extends Controller
 
     public function redirect()
     {
-
         Message::send('admin/pensionados','error', 'el pensionado se agrego exitosamente.');
+    }
+
+    public function array()
+    {
+        PensionadosRepository::ingresar($_POST);
     }
 }
