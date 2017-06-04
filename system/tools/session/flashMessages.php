@@ -1,5 +1,7 @@
 <?php
 namespace System\tools\session;
+
+use System\tools\rounting\Redirect;
 /**
  * Class Flash_Messages
  */
@@ -43,7 +45,8 @@ class Message
             'title' => null,
             'message' => $message
         );
-        header('Location: '.baseUrl.''.$url.'');
+        //header('Location: '.baseUrl.''.$url.'');
+        Redirect::to($url);
     }
 
     /**
