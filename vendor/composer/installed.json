@@ -3957,5 +3957,46 @@
             "pagination",
             "paginator"
         ]
+    },
+    {
+        "name": "railto/flash-messages",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/railto/flash-messages.git",
+            "reference": "78dbd2aad98eff6d509e1a7f3be1fc75df6d1f9d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/railto/flash-messages/zipball/78dbd2aad98eff6d509e1a7f3be1fc75df6d1f9d",
+            "reference": "78dbd2aad98eff6d509e1a7f3be1fc75df6d1f9d",
+            "shasum": ""
+        },
+        "time": "2014-09-25 21:24:33",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/flash_messages.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mark Railton",
+                "email": "marksrailton@gmail.com",
+                "homepage": "http://railto.io"
+            }
+        ],
+        "description": "Simple flash messages for PHP using bootstrap 3 alerts",
+        "keywords": [
+            "flash",
+            "flash messages",
+            "messages"
+        ]
     }
 ]

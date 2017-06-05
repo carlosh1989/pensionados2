@@ -2,7 +2,9 @@
 namespace App\admin\repositories;
 
 use App\Pensionado;
+use Carbon\Carbon;
 use Eloquent;
+use System\tools\rounting\Redirect;
 use System\tools\session\Message;
 
 class PensionadosRepository 
@@ -19,22 +21,45 @@ class PensionadosRepository
     	
     	if(!$existePensionado)
     	{
-			$pensionado = Pensionado::create($data);
+    		$pensionado = new Pensionado;
+    		$pensionado->nombre = $nombre;
+    		$pensionado->apellido = $apellido;
+    		$pensionado->cedula = $cedula;
+    		$pensionado->direccion = $direccion;
+    		$pensionado->fecha_nacimiento = $fecha_nacimiento;
+    		$pensionado->nacionalidad = $nacionalidad;
+    		$pensionado->estado_civil = $estado_civil;
+    		$pensionado->id_discapacidad = $discapacidad;
+    		$pensionado->id_parroquia = $id_parroquia;
+    		$pensionado->telefono = $telefono;
+    		$pensionado->sexo = $sexo;
+    		$pensionado->id_municipio = $id_municipio;
+    		$pensionado->fecha_registro =  Carbon::now()->format('d-m-Y');
+			//$pensionado = Pensionado::create($data);
 
-			if($pensionado->id)
+			if( $pensionado->save())
 			{
-            	Message::send('admin/pensionados','success', 'el pensionado se agrego exitosamente.');
+            	Redirect::send('admin/pensionados','success', 'el pensionado se agrego exitosamente.');
 			}
 			else
 			{
-				$mensaje = 'Error al guardar datos de pensionado';
-            	Message::send('admin/pensionados/create','error', $mensaje);
+            	Redirect::send('admin/pensionados/create','error','Error al guardar datos de pensionado');
 			}
     	}
     	else
     	{
-    		$mensaje = 'El pensionado ya se encuentra en el sistema';
-            Message::send('admin/pensionados/create','error', $mensaje);
+            Redirect::send('admin/pensionados/create','error','El pensionado ya se encuentra en el sistema');
     	}
+    }
+
+    public function actualizar($data,$id)
+    {
+        extract($data);
+        $pensionado = Pensionado::find($id);
+        $pensionado->nombre = $nombre;
+        $pensionado->apellido = $apellido;
+        $pensionado->cedula = $cedula;
+        $pensionado->save();
+        Redirect::send('admin/pensionados','success', 'Pensioando actualizado exitosamente..!');
     }
 }

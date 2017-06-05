@@ -1,9 +1,14 @@
 <?php
 namespace App\admin\controllers;
 
+use App\Discapacidad;
+use App\Municipio;
+use App\Parroquia;
 use App\Pensionado;
 use App\admin\repositories\PensionadosRepository;
+use Carbon\Carbon;
 use Controller,View,Token,Session,Arr,Message;
+use System\tools\rounting\Redirect;
 
 class Pensionados extends Controller
 {
@@ -28,13 +33,8 @@ class Pensionados extends Controller
     // localhost/proyecto/modulo/principal/
     public function store()
     {
-        extract($_POST);
-        $pensionado = new Pensionado;
-        $pensionado->nombre = $nombre;
-        $pensionado->apellido = $apellido;
-        $pensionado->cedula = $cedula;
-        $pensionado->save();
-        Message::send('admin/pensionados','error', 'el pensionado se agrego exitosamente.');
+        PensionadosRepository::ingresar($_POST);
+        //Arr::show($_POST);
     }
 
     // localhost/proyecto/modulo/principal/ID
@@ -54,30 +54,18 @@ class Pensionados extends Controller
     // localhost/proyecto/modulo/principal/ID/put
     public function update($id)
     {
-        extract($_POST);
-        $pensionado = Pensionado::find($id);
-        $pensionado->nombre = $nombre;
-        $pensionado->apellido = $apellido;
-        $pensionado->cedula = $cedula;
-        $pensionado->save();
-        header('Location: '.baseUrl.'admin/pensionados');
+        PensionadosRepository::actualizar($_POST,$id);
     }
 
     // localhost/proyecto/modulo/principal/ID/delete
     public function destroy($id)
     {
-        $pensionado = Pensionado::find($id);
-        $pensionado->delete();
-        header('Location: '.baseUrl.'admin/pensionados');
+        Pensionado::find($id)->delete();
+        Redirect::send('admin/pensionados','success', 'El pensionado se borro con exito.');
     }
 
     public function redirect()
     {
-        Message::send('admin/pensionados','error', 'el pensionado se agrego exitosamente.');
-    }
-
-    public function array()
-    {
-        PensionadosRepository::ingresar($_POST);
+        Redirect::send('admin/pensionados','error', 'el pensionado se agrego exitosamente.');
     }
 }

@@ -170,7 +170,7 @@ if(baseUrl)
 				{
 					if($num == true)
 					{
-						if (!$requestURI[4]) 
+						if (!$parametro) 
 						{
 							$metodo = 'update';
 						}

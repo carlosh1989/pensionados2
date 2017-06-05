@@ -38,7 +38,7 @@ class Message
     }
 
     //funcion para redireccionar a otra pagina y a la vez mostrar un mensaje de sweetalert
-    public static function send($url,$type,$message)
+    public static function send($type,$message)
     {
         $_SESSION['flash_message'] = array(
             'type' => $type,
@@ -46,7 +46,6 @@ class Message
             'message' => $message
         );
         //header('Location: '.baseUrl.''.$url.'');
-        Redirect::to($url);
     }
 
     /**

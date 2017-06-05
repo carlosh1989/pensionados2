@@ -1,3 +1,3 @@
 
-s/${model}/Pensionado/
-s/${tabla}/pensionados/
+s/${model}/Discapacidad/
+s/${tabla}/discapacidades/

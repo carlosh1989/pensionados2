@@ -1,4 +1,4 @@
 
-s/${modulo}/admin/
-s/${controller}/Pensionados/
+s/${modulo}/cosa/
+s/${controller}/Principal/
 s/${vista}/show/
