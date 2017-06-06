@@ -39,16 +39,16 @@ class PensionadosRepository
 
 			if( $pensionado->save())
 			{
-            	Redirect::send('admin/pensionados','success', 'el pensionado se agrego exitosamente.');
+            	return $pensionado->id;
 			}
 			else
 			{
-            	Redirect::send('admin/pensionados/create','error','Error al guardar datos de pensionado');
+            	return 'Error al guardar datos de pensionado';
 			}
     	}
     	else
     	{
-            Redirect::send('admin/pensionados/create','error','El pensionado ya se encuentra en el sistema');
+            return 'El pensionado ya se encuentra en el sistema';
     	}
     }
 

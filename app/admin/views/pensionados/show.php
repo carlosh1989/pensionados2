@@ -76,8 +76,8 @@
     </div>
     <hr>
     <?php if ($pensionado->id_autorizado): ?>
-    <a class="btn btn-info" href=""><i class="fa fa-search"></i> Ver autorizado</a>
+    <a class="btn btn-info" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $pensionado->autorizado->id ?>"><i class="fa fa-search"></i> Ver autorizado</a>
     <?php else: ?>
-    <a class="btn btn-success" href=""><i class="fa fa-plus"></i> Agregar Autorizado </a>
+    <a class="btn btn-success" href="<?php echo $baseUrl ?>admin/autorizados/create?id_pensionado=<?php echo $pensionado->id ?>"><i class="fa fa-plus"></i> Agregar Autorizado </a>
     <?php endif ?>
   </div>

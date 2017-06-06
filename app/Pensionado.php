@@ -26,5 +26,10 @@ class Pensionado extends Model {
 	{
 		return $this->belongsTo(Discapacidad::class, 'id_discapacidad', 'id');
 	}
+
+	public function autorizado()
+	{
+		return $this->hasOne(Autorizado::class, 'id_pensionado','id');
+	}
 }
 

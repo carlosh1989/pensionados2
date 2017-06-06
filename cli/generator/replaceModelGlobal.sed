@@ -1,3 +1,3 @@
 
-s/${model}/Discapacidad/
-s/${tabla}/discapacidades/
+s/${model}/Parentesco/
+s/${tabla}/parentesco/

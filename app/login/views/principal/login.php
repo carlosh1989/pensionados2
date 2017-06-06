@@ -8,24 +8,13 @@
             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
               <i class="fa fa-times"></i></button>
           </div>
-        </div>
-        <div class="box-body">
-          <form action="<?php echo baseUrl ?>login/principal/verificar" method="POST">  
-            <input type="text" name="usuario" placeholder="Usuario">
-            <input type="text" name="clave" placeholder="Clave">
-            <br><br>
-            <button type="submit" class="btn btn-sm btn-success">Login</button>
-          </form>
-          <hr>
-
-        </div>
-
+        </div>  
 </div>
 
  
-<form action="<?php echo baseUrl ?>login/principal/csrf" method="POST">  
+<form action="<?php echo baseUrl ?>login/principal/verificar" method="POST">  
   <?php Token::field() ?>
-  <input type="text" name="user" /><br/>
+  <input type="text" name="username" /><br/>
   <input type="text" name="password" />
   <br>
   <input type="submit" value="Login"/>

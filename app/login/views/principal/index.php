@@ -10,7 +10,13 @@
           </div>
         </div>
         <div class="box-body">
-          Vista <b>index</b> del mudulo <b>login</b>
+      <form action="<?php echo baseUrl ?>login/principal/verificar" method="POST">  
+  <?php Token::field() ?>
+  <input type="text" name="username" /><br/>
+  <input type="password" name="password" />
+  <br>
+  <input type="submit" value="Login"/>
+</form>s
         </div>
         <!-- /.box-body -->
         <div class="box-footer">

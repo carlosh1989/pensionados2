@@ -125,4 +125,4 @@ window.console&&console.log(idmunicipio);
       <button type="submit" class="btn btn-lg btn-success pull-right"> Guardar <i class="fa fa-save"></i></button>
     </form>
   </div>
-</div>
+</div>  

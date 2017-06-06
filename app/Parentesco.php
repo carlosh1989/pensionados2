@@ -2,8 +2,8 @@
 namespace App;
 use \Illuminate\Database\Eloquent\Model;
  
-class Aula extends Model {
-    protected $table = 'aulas';
+class Parentesco extends Model {
+    protected $table = 'parentesco';
 
     //Ejemplo de definir campos
     //protected $fillable = ['username','email','password'];

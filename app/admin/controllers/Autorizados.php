@@ -1,16 +1,17 @@
 <?php
 namespace App\admin\controllers;
 
+use App\Autorizado;
 use App\Discapacidad;
 use App\Municipio;
 use App\Parroquia;
 use App\Pensionado;
-use App\admin\repositories\PensionadosRepository as Repo;
+use App\admin\repositories\AutorizadosRepository as Repo;
 use Carbon\Carbon;
 use Controller,View,Token,Session,Arr,Message;
 use System\tools\rounting\Redirect;
 
-class Pensionados extends Controller
+class Autorizados extends Controller
 {
     function __construct()
     {
@@ -20,14 +21,15 @@ class Pensionados extends Controller
     // localhost/proyecto/modulo/principal
     public function index()
     {
-        $pensionados = Pensionado::all();
-        View::show('index', compact('pensionados'));
+        $autorizados = Autorizado::all();
+        View::show('index', compact('autorizados'));
     }
 
     // localhost/proyecto/modulo/principal/create
     public function create()
     {
-        View::show('create');
+        extract($_GET);
+        View::show('create',compact('id_pensionado'));
     }
 
     // localhost/proyecto/modulo/principal/
@@ -39,47 +41,37 @@ class Pensionados extends Controller
         //la variable $ingreso debe devolver true o en su caso un mensaje diciendo el error resultante
         if (is_numeric($ingreso)) 
         {
-            Redirect::send('admin/pensionados','success', 'el pensionado se agrego exitosamente.');
+            Redirect::send('admin/autorizados/'.$ingreso,'success', 'el autorizado se agrego exitosamente.');
         } 
         else 
         {
-            Redirect::send('admin/pensionados/create','error', $ingreso);
+            list($id_pensionado,$mensaje) = explode('/', $ingreso);
+            Redirect::send('admin/autorizados/create?id_pensionado='.$id_pensionado,'error', $mensaje);
         }
     }
 
     // localhost/proyecto/modulo/principal/ID
     public function show($id)
     {
-        $pensionado = Pensionado::find($id);
-        View::show('show', compact('pensionado'));
+        $autorizado = Autorizado::find($id);
+        View::show('show', compact('autorizado'));
     }
 
     // localhost/proyecto/modulo/principal/ID/edit
     public function edit($id)
     {
-        $pensionado = Pensionado::find($id);
-        View::show('edit' , compact('pensionado'));
+        View::show('edit' , compact('id'));
     }
 
     // localhost/proyecto/modulo/principal/ID/put
     public function update($id)
     {
-        PensionadosRepository::actualizar($_POST,$id);
+        //Actualizar datos con el ID
     }
 
     // localhost/proyecto/modulo/principal/ID/delete
     public function destroy($id)
     {
-        Pensionado::find($id)->delete();
-        Redirect::send('admin/pensionados','success', 'El pensionado se borro con exito.');
-    }
-
-    public function redirect()
-    {
-        Redirect::send('admin/pensionados','error', 'el pensionado se agrego exitosamente.');
-    }
-    public function todos()
-    {
-        Arr::show(Repo::all());
+        //Borrar un registro usando el ID
     }
 }

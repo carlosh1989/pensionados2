@@ -13,6 +13,7 @@ if (isset($_SERVER['ENV_ENVIRONMENT']) AND $_SERVER['ENV_ENVIRONMENT'] == 'local
 
 session_start();
 
+
 $stringUrl = $_SERVER['REQUEST_URI'];
 $findme   = '?';
 $pos = strpos($stringUrl, $findme);
@@ -53,7 +54,6 @@ if(baseUrl)
 			$metodo = '';
 		}
 		
-
 		if (isset($requestURI[4])) {
 			$parametro = $requestURI[4];
 		} else {
