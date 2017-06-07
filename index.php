@@ -1,4 +1,6 @@
 <?php
+
+use System\tools\session\Session;
 // Dividimos la URL.
 require_once __DIR__ . '/vendor/autoload.php';
 $dotenv = new Dotenv\Dotenv(__DIR__);
@@ -12,7 +14,6 @@ if (isset($_SERVER['ENV_ENVIRONMENT']) AND $_SERVER['ENV_ENVIRONMENT'] == 'local
 }
 
 session_start();
-
 
 $stringUrl = $_SERVER['REQUEST_URI'];
 $findme   = '?';

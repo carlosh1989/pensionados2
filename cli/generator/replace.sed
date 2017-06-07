@@ -1,4 +1,4 @@
 
-s/${modulo}/puerta/
-s/${controller}/Login/
-s/${vista}/show/
+s/${modulo}/admin/
+s/${controller}/Principal/
+s/${vista}/index/

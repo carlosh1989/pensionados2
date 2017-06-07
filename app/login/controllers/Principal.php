@@ -14,7 +14,25 @@ class Principal extends Controller
 
     public function index()
     {
-		View::ver('login/principal/index');
+	    $session = new Session();
+
+	    // Check if the session registered.
+	    if ($session->isRegistered()) {
+	        // Check to see if the session has expired.
+	        // If it has, end the session and redirect to login.
+	        if ($session->isExpired()) {
+	            $session->end();
+	        	Redirect::to('login/principal/login');
+	        } else {
+	            // Keep renewing the session as long as they keep taking action.
+	            $session->renew();
+	            $usuario = (object) Session::get('current_user');
+	            $url = $usuario->rol.'/principal';
+	            Redirect::to($url);
+	        }
+	    } else {
+	        Redirect::to('login/principal/login');
+	    }
     }
     
     public function login()
@@ -24,7 +42,6 @@ class Principal extends Controller
 
     public function verificar()
     {
-
 		extract($_POST);
 		$usuario = Usuario::where('usuario',$username)->first();
 		if($usuario)
@@ -37,11 +54,11 @@ class Principal extends Controller
 	            // You can define what you like to be stored.
 	            $user = array(
 	                'user_id'	=> $usuario->id,
-	                'username'	=> $username,
-	                'role'		=> $usuario->rol	
+	                'username'	=> $usuario->usuario,
+	                'rol'		=> $usuario->rol	
 	            );
 
-	            //$session->register(120); // Register for 2 hours.
+	           	$session->register(120); // Register for 2 hours.
 	            $session->set('current_user', $user);
 	            //header('location: '.baseUrl.'admin/pensionados');
 	            Redirect::send('admin/pensionados','success','Bienvenido al sistema');
@@ -61,7 +78,20 @@ class Principal extends Controller
 
     public function clave()
     {
-		$password = password_hash('123', PASSWORD_DEFAULT);
+		$password = password_hash('carlos2017', PASSWORD_DEFAULT);
 		echo $password;
+	}
+
+	public function sesion()
+	{
+		$usuario = Session::get('current_user');
+		//echo $usuario['role'];
+		echo $usuario->role;
+		//Arr::show(Session::get('usuario'));
+	}
+
+	public function logout()
+	{
+		session_destroy();
 	}
 }

@@ -4,7 +4,7 @@ return array (
   array (
     'view' => 'System\\template\\View',
     'controller' => 'System\\core\\BaseController',
-    'session' => 'rcastera\\Browser\\Session\\Session',
+    'session' => 'System\\tools\\session\\Session',
     'token' => 'System\\tools\\security\\Token',
     'eloquent' => 'DB\\Database',
     'message' => 'System\\tools\\session\\Message',
@@ -20,7 +20,7 @@ return array (
     array (
       'controller' => 'controller',
     ),
-    'rcastera\\Browser\\Session\\Session' => 
+    'System\\tools\\session\\Session' => 
     array (
       'session' => 'session',
     ),
