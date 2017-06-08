@@ -7,8 +7,7 @@ use App\Parroquia;
 use App\Pensionado;
 use App\admin\repositories\PensionadosRepository as Repo;
 use Carbon\Carbon;
-use Controller,View,Token,Session,Arr,Message;
-use System\tools\rounting\Redirect;
+use Controller,View,Token,Session,Arr,Message,Redirect;
 
 class Pensionados extends Controller
 {
@@ -39,7 +38,7 @@ class Pensionados extends Controller
         //la variable $ingreso debe devolver true o en su caso un mensaje diciendo el error resultante
         if (is_numeric($ingreso)) 
         {
-            Redirect::send('admin/pensionados','success', 'el pensionado se agrego exitosamente.');
+            Redirect::send('admin/pensionados/'.$ingreso,'success', 'el pensionado se agrego exitosamente.');
         } 
         else 
         {
@@ -64,7 +63,7 @@ class Pensionados extends Controller
     // localhost/proyecto/modulo/principal/ID/put
     public function update($id)
     {
-        PensionadosRepository::actualizar($_POST,$id);
+        Repo::actualizar($_POST,$id);
     }
 
     // localhost/proyecto/modulo/principal/ID/delete

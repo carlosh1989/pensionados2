@@ -2,7 +2,7 @@
 namespace App\${modulo}\controllers;
 
 use App\${modulo}\repositories\${controller}Repository;
-use Controller,View,Token,Session,Arr,Message;
+use Controller,View,Token,Session,Arr,Message,Redirect;
 
 class ${controller} extends Controller
 {

@@ -2,8 +2,7 @@
 namespace App\login\controllers;
 
 use App\Usuario;
-use Controller,View,Token,Session,Arr,Message;
-use System\tools\rounting\Redirect;
+use Controller,View,Token,Session,Arr,Message,Redirect;
 
 class Principal extends Controller
 {
@@ -53,8 +52,11 @@ class Principal extends Controller
 
 	            // You can define what you like to be stored.
 	            $user = array(
-	                'user_id'	=> $usuario->id,
-	                'username'	=> $usuario->usuario,
+	                'id'	=> $usuario->id,
+	                'usuario'	=> $usuario->usuario,
+	                'nombre'  => $usuario->nombre,
+	                'apellido' => $usuario->apellido,
+	                'cargo'	=> $usuario->cargo,
 	                'rol'		=> $usuario->rol	
 	            );
 
@@ -92,6 +94,7 @@ class Principal extends Controller
 
 	public function logout()
 	{
-		session_destroy();
+		Session::end();
+		Redirect::to('');
 	}
 }

@@ -1,14 +1,9 @@
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">DATOS DE PENSIONADO</h3>
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-      <i class="fa fa-minus"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-      <i class="fa fa-times"></i></button>
-    </div>
+<div class="panel panel-default">
+  <br>
+  <div class="panel-heading">
+    <h3 class="panel-title">DATOS DE PENSIONADO</h3>
   </div>
-  <div class="box-body">
+  <div class="panel-body">
     <div class="row">
       <div class="col-lg-3 dl-horizontal">
         <dt>Nombre:</dt>
@@ -81,3 +76,4 @@
     <a class="btn btn-success" href="<?php echo $baseUrl ?>admin/autorizados/create?id_pensionado=<?php echo $pensionado->id ?>"><i class="fa fa-plus"></i> Agregar Autorizado </a>
     <?php endif ?>
   </div>
+</div>

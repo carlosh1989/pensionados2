@@ -9,6 +9,7 @@ return array (
     'eloquent' => 'DB\\Database',
     'message' => 'System\\tools\\session\\Message',
     'arr' => 'System\\tools\\render\\Arr',
+    'redirect' => 'System\\tools\\rounting\\Redirect',
   ),
   'classNameToAliasMapping' => 
   array (
@@ -39,6 +40,10 @@ return array (
     'System\\tools\\render\\Arr' => 
     array (
       'arr' => 'arr',
+    ),
+    'System\\tools\\rounting\\Redirect' => 
+    array (
+      'redirect' => 'redirect',
     ),
   ),
 );

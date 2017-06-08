@@ -1,41 +1,44 @@
-<div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">PENSIONADOS</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          <a class="btn btn-success fa fa-plus" href="<?php echo baseUrl ?>admin/pensionados/create"> Agregar pensionado</a>
-      <table class="table table-bordered">
-    <thead>
-      <tr>
-      <th>id</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Cedula</th>
-        <th>Opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($pensionados as $p): ?>
-      <tr>
-      <td><?php echo $p->id ?></td>
-        <td><?php echo $p->nombre ?></td>
-        <td><?php echo $p->apellido ?></td>
-        <td><?php echo $p->cedula ?></td>
-        <td>
-            <a class="btn btn-primary fa fa-search" href="<?php echo $baseUrl ?>admin/pensionados/<?php echo $p->id ?>"></a>
-            <a class="btn btn-info fa fa-pencil" href="<?php echo $baseUrl ?>admin/pensionados/<?php echo $p->id ?>/edit"></a>
-            <a class="btn btn-danger fa fa-times" href="<?php echo $baseUrl ?>admin/pensionados/<?php echo $p->id ?>/delete"></a>
-        </td>
-      </tr>
-    <?php endforeach ?>
-    </tbody>
-  </table>
+<div class="panel panel-default">
+  <br>
+  <div class="panel-heading">
+    <h3 class="panel-title">PENSIONADOS</h3>
+  </div>
+  <div class="panel-body">
+    <a class="btn btn-success" href="<?php echo baseUrl ?>admin/pensionados/create"> Agregar pensionado <i class="fa fa-plus"></i></a>
+    <br><br>
+    <table class="table" data-striped="true">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cedula</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($pensionados as $p): ?>
+        <tr>
+          <td><?php echo $p->id ?></td>
+          <td><?php echo $p->nombre ?></td>
+          <td><?php echo $p->apellido ?></td>
+          <td><?php echo $p->cedula ?></td>
+          <td width="15%">
+            <!-- Single button -->
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle fa fa-cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="<?php echo $baseUrl ?>admin/pensionados/<?php echo $p->id ?>"> <pre class="text-primary">VER DATOS <i class="fa fa-search"></i></pre></a></li>
+                <li> <a href="<?php echo $baseUrl ?>admin/pensionados/<?php echo $p->id ?>/edit"> <pre class="text-success">EDITAR <i class="fa fa-pencil"></i></pre></a></li></a></li>
+                <li><a href="<?php echo $baseUrl ?>admin/pensionados/<?php echo $p->id ?>/delete"><pre class="text-danger">ELIMINAR <i class="fa fa-times"></i></pre></a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <?php endforeach ?>
+      </tbody>
+    </table>
   </div>
 </div>

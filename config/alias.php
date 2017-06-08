@@ -7,5 +7,6 @@ return array(
     'Session'		=> \System\tools\session\Session::class,
     'Eloquent'		=> \DB\Database::class,
     'Message'		=> \System\tools\session\Message::class,
-    'Arr'		=> \System\tools\render\Arr::class,
+    'Arr'		    => \System\tools\render\Arr::class,
+    'Redirect'      => \System\tools\rounting\Redirect::class,
 );

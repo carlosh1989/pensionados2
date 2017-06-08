@@ -1,22 +1,17 @@
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">AUTORIZADOS</h3>
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-      <i class="fa fa-minus"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-      <i class="fa fa-times"></i></button>
-    </div>
+<div class="panel panel-default">
+<br>
+  <div class="panel-heading">
+    <h3 class="panel-title">AUTORIZADOS</h3>
   </div>
-  <div class="box-body">
-    <table class="table table-bordered">
+  <div class="panel-body">
+    <table class="table" data-striped="true">
       <thead>
         <tr>
           <th>id</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Cedula</th>
-          <th>Opciones</th>
+          <th>Opciones</th> 
         </tr>
       </thead>
       <tbody>
@@ -26,10 +21,10 @@
           <td><?php echo $a->nombre ?></td>
           <td><?php echo $a->apellido ?></td>
           <td><?php echo $a->cedula ?></td>
-          <td>
-            <a class="btn btn-primary fa fa-search" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $p->id ?>"></a>
-            <a class="btn btn-info fa fa-pencil" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $p->id ?>/edit"></a>
-            <a class="btn btn-danger fa fa-times" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $p->id ?>/delete"></a>
+          <td width="15%">
+            <a class="btn btn-primary fa fa-search" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $a->id ?>"></a>
+            <a class="btn btn-info fa fa-pencil" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $a->id ?>/edit"></a>
+            <a class="btn btn-danger fa fa-times" href="<?php echo $baseUrl ?>admin/autorizados/<?php echo $a->id ?>/delete"></a>
           </td>
         </tr>
         <?php endforeach ?>

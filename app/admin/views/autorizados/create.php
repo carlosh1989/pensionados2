@@ -1,27 +1,9 @@
-<script language="javascript">
-$(document).ready(function(){
-$("#municipio").change(function () {
-$("#municipio option:selected").each(function () {
-idmunicipio = $(this).val();
-$.post("parroquias.php", { idmunicipio:idmunicipio }, function(data){
-$("#parroquia").html(data);
-});
-window.console&&console.log(idmunicipio);
-});
-})
-});
-</script>
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">INGRESAR AUTORIZADO</h3>
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-      <i class="fa fa-minus"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-      <i class="fa fa-times"></i></button>
-    </div>
+<div class="panel panel-default">
+  <br>
+  <div class="panel-heading">
+    <h3 class="panel-title">INGRESAR AUTORIZADO</h3>
   </div>
-  <div class="box-body">
+  <div class="panel-body">
     <form action="<?php echo baseUrl ?>admin/autorizados" method="POST">
       <?php echo Token::field() ?>
       <input type="hidden" name="id_pensionado" value="<?php echo $id_pensionado ?>">
@@ -69,13 +51,13 @@ window.console&&console.log(idmunicipio);
         </div>
       </div>
       <br>
-        <div class="row">
-          <div class="col-lg-12">
-            <textarea placeholder="Dirección" class="form-control" name="direccion"></textarea>
-          </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <textarea placeholder="Dirección" class="form-control" name="direccion"></textarea>
         </div>
+      </div>
       <hr>
-      <button type="submit" class="btn btn-lg btn-success pull-right"> Guardar <i class="fa fa-save"></i></button>
+      <button type="submit" class="btn btn-success pull-right"> Guardar <i class="fa fa-save"></i></button>
     </form>
   </div>
 </div>

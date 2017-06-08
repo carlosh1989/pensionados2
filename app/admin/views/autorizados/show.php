@@ -1,14 +1,9 @@
-<div class="box">
-  <div class="box-header with-border">
-    <h3 class="box-title">DATOS DEL AUTORIZADO</h3>
-    <div class="box-tools pull-right">
-      <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-      <i class="fa fa-minus"></i></button>
-      <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-      <i class="fa fa-times"></i></button>
-    </div>
+<div class="panel panel-default">
+  <br>
+  <div class="panel-heading">
+    <h3 class="panel-title">DATOS DEL AUTORIZADO</h3>
   </div>
-  <div class="box-body">
+  <div class="panel-body">
     <h4>Autorizado de el Pencionado: <?php echo $autorizado->pensionado->nombre ?> <?php echo $autorizado->pensionado->apellido ?> </h4>
     <hr>
     <div class="row">
@@ -37,3 +32,4 @@
       </div>
     </div>
   </div>
+</div>

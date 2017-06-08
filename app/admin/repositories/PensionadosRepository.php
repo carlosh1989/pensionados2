@@ -59,7 +59,16 @@ class PensionadosRepository
         $pensionado->nombre = $nombre;
         $pensionado->apellido = $apellido;
         $pensionado->cedula = $cedula;
+        $pensionado->direccion = $direccion;
+        $pensionado->fecha_nacimiento = $fecha_nacimiento;
+        $pensionado->nacionalidad = $nacionalidad;
+        $pensionado->estado_civil = $estado_civil;
+        $pensionado->id_discapacidad = $discapacidad;
+        $pensionado->id_parroquia = $id_parroquia;
+        $pensionado->telefono = $telefono;
+        $pensionado->sexo = $sexo;
+        $pensionado->id_municipio = $id_municipio;
         $pensionado->save();
-        Redirect::send('admin/pensionados','success', 'Pensioando actualizado exitosamente..!');
+        Redirect::send('admin/pensionados','success', 'pensionado actualizado exitosamente..!');
     }
 }

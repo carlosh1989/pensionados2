@@ -8,8 +8,7 @@ use App\Parroquia;
 use App\Pensionado;
 use App\admin\repositories\AutorizadosRepository as Repo;
 use Carbon\Carbon;
-use Controller,View,Token,Session,Arr,Message;
-use System\tools\rounting\Redirect;
+use Controller,View,Token,Session,Arr,Message,Redirect;
 
 class Autorizados extends Controller
 {
@@ -60,7 +59,8 @@ class Autorizados extends Controller
     // localhost/proyecto/modulo/principal/ID/edit
     public function edit($id)
     {
-        View::show('edit' , compact('id'));
+        $autorizado = Autorizado::find($id);
+        View::show('edit' , compact('autorizado'));
     }
 
     // localhost/proyecto/modulo/principal/ID/put
