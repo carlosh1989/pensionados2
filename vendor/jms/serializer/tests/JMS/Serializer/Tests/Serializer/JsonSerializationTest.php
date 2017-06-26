@@ -23,9 +23,12 @@ use JMS\Serializer\Exception\RuntimeException;
 use JMS\Serializer\EventDispatcher\Event;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\Tests\Fixtures\ObjectWithEmptyArrayAndHash;
+use JMS\Serializer\Tests\Fixtures\Tag;
 use JMS\Serializer\VisitorInterface;
 use JMS\Serializer\Tests\Fixtures\Author;
 use JMS\Serializer\Tests\Fixtures\AuthorList;
+use JMS\Serializer\SerializationContext;
 
 class JsonSerializationTest extends BaseSerializationTest
 {
@@ -53,6 +56,9 @@ class JsonSerializationTest extends BaseSerializationTest
             $outputs['array_mixed'] = '["foo",1,true,{"foo":"foo","moo":"bar","camel_case":"boo"},[1,3,true]]';
             $outputs['array_datetimes_object'] = '{"array_with_default_date_time":["2047-01-01T12:47:47+0000","2016-12-05T00:00:00+0000"],"array_with_formatted_date_time":["01.01.2047 12:47:47","05.12.2016 00:00:00"]}';
             $outputs['array_named_datetimes_object'] = '{"named_array_with_formatted_date":{"testdate1":"01.01.2047 12:47:47","testdate2":"05.12.2016 00:00:00"}}';
+            $outputs['array_datetimes_object'] = '{"array_with_default_date_time":["2047-01-01T12:47:47+0000","2016-12-05T00:00:00+0000"],"array_with_formatted_date_time":["01.01.2047 12:47:47","05.12.2016 00:00:00"]}';
+            $outputs['array_named_datetimes_object'] = '{"named_array_with_formatted_date":{"testdate1":"01.01.2047 12:47:47","testdate2":"05.12.2016 00:00:00"}}';
+            $outputs['array_named_datetimeimmutables_object'] = '{"named_array_with_formatted_date":{"testdate1":"01.01.2047 12:47:47","testdate2":"05.12.2016 00:00:00"}}';
             $outputs['blog_post'] = '{"id":"what_a_nice_id","title":"This is a nice title.","created_at":"2011-07-30T00:00:00+0000","is_published":false,"etag":"1edf9bf60a32d89afbb85b2be849e3ceed5f5b10","comments":[{"author":{"full_name":"Foo Bar"},"text":"foo"}],"comments2":[{"author":{"full_name":"Foo Bar"},"text":"foo"}],"metadata":{"foo":"bar"},"author":{"full_name":"Foo Bar"},"publisher":{"pub_name":"Bar Foo"},"tag":[{"name":"tag1"},{"name":"tag2"}]}';
             $outputs['blog_post_unauthored'] = '{"id":"what_a_nice_id","title":"This is a nice title.","created_at":"2011-07-30T00:00:00+0000","is_published":false,"etag":"1edf9bf60a32d89afbb85b2be849e3ceed5f5b10","comments":[],"comments2":[],"metadata":{"foo":"bar"},"author":null,"publisher":null,"tag":null}';
             $outputs['price'] = '{"price":3}';
@@ -74,6 +80,8 @@ class JsonSerializationTest extends BaseSerializationTest
             $outputs['accessor_order_methods'] = '{"foo":"c","b":"b","a":"a"}';
             $outputs['inline'] = '{"c":"c","a":"a","b":"b","d":"d"}';
             $outputs['inline_child_empty'] = '{"c":"c","d":"d"}';
+            $outputs['empty_child'] = '{"c":"c","d":"d","child":{}}';
+            $outputs['empty_child_skip'] = '{"c":"c","d":"d"}';
             $outputs['groups_all'] = '{"foo":"foo","foobar":"foobar","bar":"bar","none":"none"}';
             $outputs['groups_foo'] = '{"foo":"foo","foobar":"foobar"}';
             $outputs['groups_foobar'] = '{"foo":"foo","foobar":"foobar","bar":"bar"}';
@@ -85,6 +93,8 @@ class JsonSerializationTest extends BaseSerializationTest
             $outputs['virtual_properties_all'] = '{"low":1,"high":8}';
             $outputs['nullable'] = '{"foo":"bar","baz":null,"0":null}';
             $outputs['nullable_skip'] = '{"foo":"bar"}';
+            $outputs['person_secret_show'] = '{"name":"mike","gender":"f"}';
+            $outputs['person_secret_hide'] = '{"name":"mike"}';
             $outputs['null'] = 'null';
             $outputs['simple_object_nullable'] = '{"foo":"foo","moo":"bar","camel_case":"boo","null_property":null}';
             $outputs['input'] = '{"attributes":{"type":"text","name":"firstname","value":"Adrien"}}';
@@ -92,6 +102,7 @@ class JsonSerializationTest extends BaseSerializationTest
             $outputs['object_when_null'] = '{"text":"foo"}';
             $outputs['object_when_null_and_serialized'] = '{"author":null,"text":"foo"}';
             $outputs['date_time'] = '"2011-08-30T00:00:00+0000"';
+            $outputs['date_time_immutable'] = '"2011-08-30T00:00:00+0000"';
             $outputs['timestamp'] = '{"timestamp":1455148800}';
             $outputs['timestamp_prev'] = '{"timestamp":"1455148800"}';
             $outputs['date_interval'] = '"PT45M"';
@@ -102,6 +113,8 @@ class JsonSerializationTest extends BaseSerializationTest
             $outputs['nullable_arrays'] = '{"empty_inline":[],"not_empty_inline":["not_empty_inline"],"empty_not_inline":[],"not_empty_not_inline":["not_empty_not_inline"],"empty_not_inline_skip":[],"not_empty_not_inline_skip":["not_empty_not_inline_skip"]}';
             $outputs['object_with_object_property_no_array_to_author'] = '{"foo": "bar", "author": "baz"}';
             $outputs['object_with_object_property'] = '{"foo": "bar", "author": {"full_name": "baz"}}';
+            $outputs['author_expression'] = '{"my_first_name":"Ruud","last_name":"Kamphuis","id":123}';
+            $outputs['maxdepth_skippabe_object'] = '{"a":{"xxx":"yyy"}}';
         }
 
         if (!isset($outputs[$key])) {
@@ -109,6 +122,13 @@ class JsonSerializationTest extends BaseSerializationTest
         }
 
         return $outputs[$key];
+    }
+
+    public function testSkipEmptyArrayAndHash()
+    {
+        $object = new ObjectWithEmptyArrayAndHash();
+
+        $this->assertEquals('{}', $this->serialize($object));
     }
 
     public function testAddLinksToOutput()
@@ -257,7 +277,114 @@ class JsonSerializationTest extends BaseSerializationTest
 
     public function testSerializeArrayWithEmptyObject()
     {
-        $this->assertEquals('{"0":{}}', $this->serialize(array(new \stdClass())));
+        $this->assertEquals('[{}]', $this->serialize(array(new \stdClass())));
+    }
+
+    public function testSerializeRootArrayWithDefinedKeys()
+    {
+        $author1 = new Author("Jim");
+        $author2 = new Author("Mark");
+
+        $data = array(
+            'jim' => $author1,
+            'mark' => $author2,
+        );
+
+        $this->assertEquals('{"jim":{"full_name":"Jim"},"mark":{"full_name":"Mark"}}', $this->serializer->serialize($data, $this->getFormat(), SerializationContext::create()->setInitialType('array')));
+        $this->assertEquals('[{"full_name":"Jim"},{"full_name":"Mark"}]', $this->serializer->serialize($data, $this->getFormat(), SerializationContext::create()->setInitialType('array<JMS\Serializer\Tests\Fixtures\Author>')));
+        $this->assertEquals('{"jim":{"full_name":"Jim"},"mark":{"full_name":"Mark"}}', $this->serializer->serialize($data, $this->getFormat(), SerializationContext::create()->setInitialType('array<string,JMS\Serializer\Tests\Fixtures\Author>')));
+
+        $data = array(
+            $author1,
+            $author2,
+        );
+        $this->assertEquals('[{"full_name":"Jim"},{"full_name":"Mark"}]', $this->serializer->serialize($data, $this->getFormat(), SerializationContext::create()->setInitialType('array')));
+        $this->assertEquals('{"0":{"full_name":"Jim"},"1":{"full_name":"Mark"}}', $this->serializer->serialize($data, $this->getFormat(), SerializationContext::create()->setInitialType('array<int,JMS\Serializer\Tests\Fixtures\Author>')));
+        $this->assertEquals('{"0":{"full_name":"Jim"},"1":{"full_name":"Mark"}}', $this->serializer->serialize($data, $this->getFormat(), SerializationContext::create()->setInitialType('array<string,JMS\Serializer\Tests\Fixtures\Author>')));
+    }
+
+    public function getTypeHintedArrays()
+    {
+        return [
+
+            [[1, 2], '[1,2]', null],
+            [['a', 'b'], '["a","b"]', null],
+            [['a' => 'a', 'b' => 'b'], '{"a":"a","b":"b"}', null],
+
+            [[], '[]', null],
+            [[], '[]', SerializationContext::create()->setInitialType('array')],
+            [[], '[]', SerializationContext::create()->setInitialType('array<integer>')],
+            [[], '{}', SerializationContext::create()->setInitialType('array<string,integer>')],
+
+
+            [[1, 2], '[1,2]', SerializationContext::create()->setInitialType('array')],
+            [[1 => 1, 2 => 2], '{"1":1,"2":2}', SerializationContext::create()->setInitialType('array')],
+            [[1 => 1, 2 => 2], '[1,2]', SerializationContext::create()->setInitialType('array<integer>')],
+            [['a', 'b'], '["a","b"]', SerializationContext::create()->setInitialType('array<string>')],
+
+            [[1 => 'a', 2 => 'b'], '["a","b"]', SerializationContext::create()->setInitialType('array<string>')],
+            [['a' => 'a', 'b' => 'b'], '["a","b"]', SerializationContext::create()->setInitialType('array<string>')],
+
+
+            [[1,2], '{"0":1,"1":2}', SerializationContext::create()->setInitialType('array<integer,integer>')],
+            [[1,2], '{"0":1,"1":2}', SerializationContext::create()->setInitialType('array<string,integer>')],
+            [[1,2], '{"0":"1","1":"2"}', SerializationContext::create()->setInitialType('array<string,string>')],
+
+
+            [['a', 'b'], '{"0":"a","1":"b"}', SerializationContext::create()->setInitialType('array<integer,string>')],
+            [['a' => 'a', 'b' => 'b'], '{"a":"a","b":"b"}', SerializationContext::create()->setInitialType('array<string,string>')],
+        ];
+    }
+
+    /**
+     * @dataProvider getTypeHintedArrays
+     * @param array $array
+     * @param string $expected
+     * @param SerializationContext|null $context
+     */
+    public function testTypeHintedArraySerialization(array $array, $expected, $context = null)
+    {
+        $this->assertEquals($expected, $this->serialize($array, $context));
+    }
+
+    public function getTypeHintedArraysAndStdClass()
+    {
+        $c1 = new \stdClass();
+        $c2 = new \stdClass();
+        $c2->foo = 'bar';
+
+        $tag = new Tag("tag");
+
+        $c3 = new \stdClass();
+        $c3->foo = $tag;
+
+        return [
+
+            [[$c1], '[{}]', SerializationContext::create()->setInitialType('array<stdClass>')],
+
+            [[$c2], '[{"foo":"bar"}]', SerializationContext::create()->setInitialType('array<stdClass>')],
+
+            [[$tag], '[{"name":"tag"}]', SerializationContext::create()->setInitialType('array<JMS\Serializer\Tests\Fixtures\Tag>')],
+
+            [[$c1], '{"0":{}}', SerializationContext::create()->setInitialType('array<integer,stdClass>')],
+            [[$c2], '{"0":{"foo":"bar"}}', SerializationContext::create()->setInitialType('array<integer,stdClass>')],
+
+            [[$c3], '{"0":{"foo":{"name":"tag"}}}', SerializationContext::create()->setInitialType('array<integer,stdClass>')],
+            [[$c3], '[{"foo":{"name":"tag"}}]', SerializationContext::create()->setInitialType('array<stdClass>')],
+
+            [[$tag], '{"0":{"name":"tag"}}', SerializationContext::create()->setInitialType('array<integer,JMS\Serializer\Tests\Fixtures\Tag>')],
+        ];
+    }
+
+    /**
+     * @dataProvider getTypeHintedArraysAndStdClass
+     * @param array $array
+     * @param string $expected
+     * @param SerializationContext|null $context
+     */
+    public function testTypeHintedArrayAndStdClassSerialization(array $array, $expected, $context = null)
+    {
+        $this->assertEquals($expected, $this->serialize($array, $context));
     }
 
     protected function getFormat()

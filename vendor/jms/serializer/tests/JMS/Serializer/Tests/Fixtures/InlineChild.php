@@ -26,10 +26,10 @@ class InlineChild
     /**
      * @Type("string")
      */
-    private $a = 'a';
+    public $a = 'a';
 
     /**
      * @Type("string")
      */
-    private $b = 'b';
+    public $b = 'b';
 }

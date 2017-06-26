@@ -22,6 +22,9 @@ use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\Serializer\Exception\InvalidArgumentException;
 use JMS\Serializer\Metadata\PropertyMetadata;
 
+/**
+ * @deprecated
+ */
 abstract class GenericSerializationVisitor extends AbstractVisitor
 {
     private $navigator;
@@ -91,11 +94,15 @@ abstract class GenericSerializationVisitor extends AbstractVisitor
      */
     public function visitArray($data, array $type, Context $context)
     {
+        $this->dataStack->push($data);
+
+        $isHash = isset($type['params'][1]);
+
         if (null === $this->root) {
-            $this->root = array();
+            $this->root = $isHash ? new \ArrayObject() : array();
             $rs = &$this->root;
         } else {
-            $rs = array();
+            $rs = $isHash ? new \ArrayObject() : array();
         }
 
         $isList = isset($type['params'][0]) && ! isset($type['params'][1]);
@@ -113,6 +120,8 @@ abstract class GenericSerializationVisitor extends AbstractVisitor
                 $rs[$k] = $v;
             }
         }
+
+        $this->dataStack->pop();
 
         return $rs;
     }
@@ -141,7 +150,7 @@ abstract class GenericSerializationVisitor extends AbstractVisitor
 
     public function visitProperty(PropertyMetadata $metadata, $data, Context $context)
     {
-        $v = $metadata->getValue($data);
+        $v = $this->accessor->getValue($data, $metadata);
 
         $v = $this->navigator->accept($v, $metadata->type, $context);
         if (null === $v && $context->shouldSerializeNull() !== true) {

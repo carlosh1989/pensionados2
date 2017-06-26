@@ -6,7 +6,7 @@
   <div class="panel-body">
     <a class="btn btn-success" href="<?php echo baseUrl ?>admin/pensionados/create"> Agregar pensionado <i class="fa fa-plus"></i></a>
     <br><br>
-    <table class="table" data-striped="true">
+    <table id="tablePagination" class="table table-striped table-condensed table-responsive" data-striped="true">
       <thead>
         <tr>
           <th>id</th>

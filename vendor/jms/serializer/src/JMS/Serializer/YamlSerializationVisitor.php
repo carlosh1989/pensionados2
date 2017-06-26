@@ -18,6 +18,7 @@
 
 namespace JMS\Serializer;
 
+use JMS\Serializer\Accessor\AccessorStrategyInterface;
 use Symfony\Component\Yaml\Inline;
 use JMS\Serializer\Metadata\PropertyMetadata;
 use JMS\Serializer\Naming\PropertyNamingStrategyInterface;
@@ -39,9 +40,9 @@ class YamlSerializationVisitor extends AbstractVisitor
     private $metadataStack;
     private $currentMetadata;
 
-    public function __construct(PropertyNamingStrategyInterface $namingStrategy)
+    public function __construct(PropertyNamingStrategyInterface $namingStrategy, AccessorStrategyInterface $accessorStrategy = null)
     {
-        parent::__construct($namingStrategy);
+        parent::__construct($namingStrategy, $accessorStrategy);
 
         $this->writer = new Writer();
     }
@@ -80,6 +81,8 @@ class YamlSerializationVisitor extends AbstractVisitor
      */
     public function visitArray($data, array $type, Context $context)
     {
+        $isHash = isset($type['params'][1]);
+
         $count = $this->writer->changeCount;
         $isList = (isset($type['params'][0]) && ! isset($type['params'][1]))
             || array_keys($data) === range(0, count($data) - 1);
@@ -89,7 +92,7 @@ class YamlSerializationVisitor extends AbstractVisitor
                 continue;
             }
 
-            if ($isList) {
+            if ($isList && !$isHash) {
                 $this->writer->writeln('-');
             } else {
                 $this->writer->writeln(Inline::dump($k).':');
@@ -159,7 +162,7 @@ class YamlSerializationVisitor extends AbstractVisitor
 
     public function visitProperty(PropertyMetadata $metadata, $data, Context $context)
     {
-        $v = $metadata->getValue($data);
+        $v = $this->accessor->getValue($data, $metadata);
 
         if (null === $v && $context->shouldSerializeNull() !== true) {
             return;

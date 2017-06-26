@@ -29,7 +29,8 @@
         "illuminate/database": "5.1.8",
         "usmanhalalit/strana": "1.*@dev",
         "railto/flash-messages": "1.0.*",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "mpdf/mpdf": "6.1.x-dev"
     },
     "autoload": {
         "psr-4": {

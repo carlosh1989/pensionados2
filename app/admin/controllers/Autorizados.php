@@ -9,12 +9,14 @@ use App\Pensionado;
 use App\admin\repositories\AutorizadosRepository as Repo;
 use Carbon\Carbon;
 use Controller,View,Token,Session,Arr,Message,Redirect;
+use System\tools\security\Permission;
 
 class Autorizados extends Controller
 {
     function __construct()
     {
         parent::__construct();
+        Permission::withRole('admin');
     }
 
     // localhost/proyecto/modulo/principal

@@ -1,4 +1,4 @@
 
 s/${modulo}/admin/
-s/${controller}/Usuarios/
-s/${vista}/show/
+s/${controller}/Reportes/
+s/${vista}/index/
