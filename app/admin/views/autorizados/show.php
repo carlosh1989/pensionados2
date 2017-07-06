@@ -4,12 +4,12 @@
     <h3 class="panel-title">DATOS DEL AUTORIZADO</h3>
   </div>
   <div class="panel-body">
-    <h4>Autorizado de el Pencionado(a): <?php echo $autorizado->pensionado->nombre ?> <?php echo $autorizado->pensionado->apellido ?> </h4>
+    <h4>Autorizado de el Pensionado(a): <?php echo $autorizado->pensionado->nombre ?> <?php echo $autorizado->pensionado->apellido ?> </h4>
     <hr>
     <div class="row">
       <div class="col-lg-3 dl-horizontal">
         <dt>Nombre:</dt>
-        <dd><?php echo $autorizado->nombre ?> <?php echo $autorizado->apellido ?></dd>
+        <dd><?php echo $autorizado->nombre ?> <?php echo $autorizado->apellido ?> </dd>
       </div>
       <div class="col-lg-3 dl-horizontal">
         <dt>Cédula:</dt>

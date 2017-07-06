@@ -1,16 +1,13 @@
 <h3>LISTA DE LAS PERSONAS AUTORIZADAS</h3>
-<table id="tablePagination" class="table table-striped table-condensed table-responsive" data-striped="true">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Cedula</th>
-      <th>Firma</th>
-      <th>Huella</th>
-    </tr>
-  </thead>
-  <tbody>
+<table width="100%">
+  <tr>
+          <td><b>id</b></td>
+          <td><b>Nombre</b></td>
+          <td><b>Apellido</b></td>
+          <td><b>Cedula</b></td>  
+          <td><b>Firma</b></td>
+          <td><b>Huella</b></td>
+        </tr>
     <?php foreach ($autorizados as $a): ?>
     <tr>
       <td><?php echo $a->id ?></td>
@@ -21,5 +18,5 @@
       <td>_________</td>
     </tr>
     <?php endforeach ?>
-  </tbody>
+
 </table>
