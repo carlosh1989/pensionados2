@@ -80,7 +80,7 @@ class Principal extends Controller
 
     public function clave()
     {
-		$password = password_hash('carlos2017', PASSWORD_DEFAULT);
+		$password = password_hash('123', PASSWORD_DEFAULT);
 		echo $password;
 	}
 

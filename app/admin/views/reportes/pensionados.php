@@ -5,6 +5,8 @@
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Cedula</th>	
+          <th>Firma</th>
+          <th>Huella</th>
         </tr>
       </thead>
       <tbody>
@@ -14,6 +16,8 @@
           <td><?php echo $p->nombre ?></td>
           <td><?php echo $p->apellido ?></td>
           <td><?php echo $p->cedula ?></td>
+          <td>_________</td>
+          <td>_________</td>
         </tr>
         <?php endforeach ?>
       </tbody>

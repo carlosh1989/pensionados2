@@ -13,7 +13,7 @@
           <th>Apellido</th>
           <th>rol</th>
           <th>cargo</th>
-          <th>Opciones</th>
+ 
         </tr>
       </thead>
       <tbody>
@@ -25,11 +25,6 @@
           <td><?php echo $u->apellido ?></td>
           <td><?php echo $u->rol ?></td>
           <td><?php echo $u->cargo ?></td>
-          <td>
-            <!--<a class="btn btn-primary fa fa-search" href="<?php echo $baseUrl ?>admin/usuario<?php echo $u->id ?>"></a>-->
-            <a class="btn btn-info fa fa-pencil" href="<?php echo $baseUrl ?>admin/usuarios/<?php echo $u->id ?>/edit"></a>
-            <a class="btn btn-danger fa fa-times" href="<?php echo $baseUrl ?>admin/usuarios/<?php echo $u->id ?>/delete"></a>
-          </td>
         </tr>
         <?php endforeach ?>
       </tbody>
